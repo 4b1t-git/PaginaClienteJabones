@@ -1,4 +1,5 @@
 import type { Product } from '../types'
+import { migrateLegacyImageUrl, publicAssetUrl } from '../utils/assets'
 
 export const CATALOG_STORAGE_KEY = 'field-and-form.catalog.v1'
 export const CART_STORAGE_KEY = 'field-and-form.cart.v1'
@@ -20,7 +21,7 @@ export const getDemoProducts = (): Product[] => [
     price: 14,
     stock: 12,
     status: 'available',
-    image: '/images/olive-leaf.svg',
+    image: publicAssetUrl('images/olive-leaf.svg'),
     imageAlt: 'Escena vectorial cenital con una barra verde salvia, banda kraft, jabones pastel y ramas de olivo',
     accent: '#68704a',
   },
@@ -37,7 +38,7 @@ export const getDemoProducts = (): Product[] => [
     price: 15,
     stock: 7,
     status: 'available',
-    image: '/images/clay-calendula.svg',
+    image: publicAssetUrl('images/clay-calendula.svg'),
     imageAlt: 'Escena vectorial de un jabón terracota con banda kraft, flores y pétalos secos de caléndula',
     accent: '#b96f57',
   },
@@ -54,7 +55,7 @@ export const getDemoProducts = (): Product[] => [
     price: 13,
     stock: 5,
     status: 'available',
-    image: '/images/quiet-oat.svg',
+    image: publicAssetUrl('images/quiet-oat.svg'),
     imageAlt: 'Escena vectorial de un jabón marfil con banda kraft, espigas de avena y manzanilla seca',
     accent: '#b39158',
   },
@@ -71,7 +72,7 @@ export const getDemoProducts = (): Product[] => [
     price: 15,
     stock: 0,
     status: 'sold-out',
-    image: '/images/night-grove.svg',
+    image: publicAssetUrl('images/night-grove.svg'),
     imageAlt: 'Escena vectorial de un jabón de carbón marmoleado con banda kraft, pino y pimienta negra',
     accent: '#343b33',
   },
@@ -89,7 +90,7 @@ export const getDemoProducts = (): Product[] => [
     stock: 18,
     status: 'coming-soon',
     availableAt: futureDate(2, 6),
-    image: '/images/citrus-sun.svg',
+    image: publicAssetUrl('images/citrus-sun.svg'),
     imageAlt: 'Escena vectorial de un jabón amarillo con banda kraft, naranja seca, cáscara y hojas cítricas',
     accent: '#d18a38',
   },
@@ -106,7 +107,7 @@ export const getDemoProducts = (): Product[] => [
     price: 15,
     stock: 9,
     status: 'available',
-    image: '/images/lavender-mist.svg',
+    image: publicAssetUrl('images/lavender-mist.svg'),
     imageAlt: 'Escena vectorial de un jabón malva con banda kraft, vetas cremosas, lavanda y pétalos secos',
     accent: '#77718b',
   },
@@ -126,10 +127,12 @@ export const localizeStoredProducts = (products: Product[]) => {
 
   return products.map((product) => {
     const localized = localizedProducts.get(product.id)
-    if (!localized) return product
+    const image = migrateLegacyImageUrl(product.image)
+    if (!localized) return { ...product, image }
 
     return {
       ...product,
+      image,
       name: product.name === legacyProductNames[product.id] ? localized.name : product.name,
       subtitle: localized.subtitle,
       description: localized.description,

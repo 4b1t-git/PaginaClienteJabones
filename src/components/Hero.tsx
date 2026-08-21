@@ -1,4 +1,5 @@
 import { ArrowIcon, LeafIcon } from './Icons'
+import { publicAssetUrl } from '../utils/assets'
 
 export const Hero = () => (
   <section className="hero" id="top" aria-labelledby="hero-title">
@@ -26,7 +27,7 @@ export const Hero = () => (
     <div className="hero__visual" aria-label="Bodegón del jabón Hoja de olivo">
       <div className="hero__shape hero__shape--clay" />
       <div className="hero__shape hero__shape--olive" />
-      <img src="/images/olive-leaf.svg" alt="Composición vectorial cenital de jabones pastel con una barra de olivo en primer plano" />
+      <img src={publicAssetUrl('images/olive-leaf.svg')} alt="Composición vectorial cenital de jabones pastel con una barra de olivo en primer plano" />
       <p className="hero__caption"><span>Lote 04</span> Hoja de olivo / romero / cedro</p>
       <span className="hero__seal" aria-hidden="true">Corte manual<br />Seis semanas de curado</span>
     </div>
