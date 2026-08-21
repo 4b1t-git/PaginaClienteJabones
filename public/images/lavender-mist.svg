@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1360" role="img" aria-labelledby="title desc">
+  <title id="title">Jabón artesanal de lavanda y caolín</title>
+  <desc id="desc">Escena vectorial suave con una barra color malva de vetas cremosas, banda kraft, tallos de lavanda y pétalos secos sobre madera oscura iluminada de forma difusa.</desc>
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#8d7468"/><stop offset=".48" stop-color="#66534d"/><stop offset="1" stop-color="#3d3332"/>
+    </linearGradient>
+    <radialGradient id="light" cx="30%" cy="16%" r="94%">
+      <stop stop-color="#f4e6de" stop-opacity=".6"/><stop offset=".52" stop-color="#b9a2ab" stop-opacity=".08"/><stop offset="1" stop-color="#241c20" stop-opacity=".52"/>
+    </radialGradient>
+    <linearGradient id="soap" x1=".06" y1="0" x2=".92" y2="1">
+      <stop stop-color="#c1b1bd"/><stop offset=".34" stop-color="#98879a"/><stop offset=".72" stop-color="#726278"/><stop offset="1" stop-color="#504252"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#67556a"/><stop offset="1" stop-color="#3b303d"/></linearGradient>
+    <linearGradient id="kraft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c6a476"/><stop offset=".5" stop-color="#aa8257"/><stop offset="1" stop-color="#79583b"/></linearGradient>
+    <linearGradient id="bud" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9a83aa"/><stop offset="1" stop-color="#554468"/></linearGradient>
+    <filter id="woodGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".009 .105" numOctaves="2" seed="28" result="n"/>
+      <feColorMatrix in="n" values=".32 0 0 0 .09 0 .25 0 0 .06 0 0 .23 0 .06 0 0 0 .32 0" result="g"/>
+      <feBlend in="SourceGraphic" in2="g" mode="multiply"/>
+    </filter>
+    <filter id="soapGrain" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".018 .2" numOctaves="3" seed="46" result="n"/>
+      <feColorMatrix in="n" values="1 0 0 0 .03 0 1 0 0 .02 0 0 1 0 .05 0 0 0 .18 0" result="g"/>
+      <feBlend in="SourceGraphic" in2="g" mode="soft-light"/>
+    </filter>
+    <filter id="paperGrain" x="-5%" y="-10%" width="110%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".05 .3" numOctaves="2" seed="8" result="n"/>
+      <feColorMatrix in="n" values=".58 0 0 0 .08 0 .44 0 0 .05 0 0 .29 0 .03 0 0 0 .23 0" result="g"/>
+      <feBlend in="SourceGraphic" in2="g" mode="multiply"/>
+    </filter>
+    <filter id="shadow" x="-24%" y="-24%" width="150%" height="165%"><feDropShadow dx="12" dy="36" stdDeviation="29" flood-color="#211820" flood-opacity=".5"/></filter>
+    <filter id="smallShadow" x="-35%" y="-35%" width="170%" height="180%"><feDropShadow dx="5" dy="13" stdDeviation="10" flood-color="#251b22" flood-opacity=".42"/></filter>
+    <clipPath id="barClip"><path d="M267 373C304 341 336 376 374 346C414 314 446 367 489 338C530 309 567 362 611 335C654 308 693 360 737 339C781 318 818 359 863 343L913 921C916 959 888 986 850 989L321 982C282 981 258 956 260 918Z"/></clipPath>
+    <symbol id="lavender" viewBox="0 0 100 330">
+      <path d="M52 326C58 232 55 139 47 43" fill="none" stroke="#52604b" stroke-width="7" stroke-linecap="round"/>
+      <g fill="url(#bud)">
+        <ellipse cx="37" cy="43" rx="18" ry="29" transform="rotate(-35 37 43)"/><ellipse cx="63" cy="64" rx="18" ry="30" transform="rotate(31 63 64)"/><ellipse cx="35" cy="88" rx="18" ry="30" transform="rotate(-33 35 88)"/><ellipse cx="65" cy="112" rx="17" ry="29" transform="rotate(32 65 112)"/><ellipse cx="36" cy="137" rx="17" ry="28" transform="rotate(-31 36 137)"/><ellipse cx="63" cy="160" rx="16" ry="27" transform="rotate(31 63 160)"/>
+      </g>
+      <g fill="#c0a9c7" opacity=".45"><ellipse cx="31" cy="34" rx="5" ry="9" transform="rotate(-35 31 34)"/><ellipse cx="59" cy="55" rx="5" ry="9" transform="rotate(31 59 55)"/><ellipse cx="30" cy="79" rx="5" ry="9" transform="rotate(-33 30 79)"/></g>
+    </symbol>
+    <symbol id="petal" viewBox="0 0 80 62">
+      <path d="M7 26C20 1 50-5 72 11C78 34 60 57 32 58C13 54 2 42 7 26Z" fill="currentColor"/>
+      <path d="M16 47C34 39 50 25 66 13" fill="none" stroke="#f0d1d0" stroke-opacity=".42" stroke-width="2"/>
+    </symbol>
+    <path id="label-bold-amp" d="M1446-179L1276 38Q1151-23 1036-130Q947-50 847-12Q747 26 609 26Q335 26 197-128Q90-247 90-402Q90-543 174-655Q258-768 425-851Q350-940 312-1020Q274-1101 274-1173Q274-1306 381-1398Q487-1491 684-1491Q874-1491 981-1394Q1088-1297 1088-1157Q1088-1068 1035-988Q982-908 821-807L1025-538Q1061-602 1087-705L1341-647Q1303-512 1275-449Q1247-387 1215-345Q1262-301 1337-248Q1411-196 1446-179M612-1056L681-976L757-1034Q841-1099 841-1163Q841-1217 801-1255Q760-1293 691-1293Q624-1293 586-1259Q548-1226 548-1182Q548-1130 612-1056M857-318L571-671Q474-622 426-553Q378-484 378-412Q378-321 438-263Q497-206 597-206Q663-206 724-232Q785-258 857-318"/>
+    <path id="label-bold-D" d="M148 0L148-1466L689-1466Q872-1466 968-1438Q1097-1400 1189-1303Q1281-1206 1329-1065Q1377-925 1377-719Q1377-538 1332-407Q1277-247 1175-148Q1098-73 967-31Q869 0 705 0L148 0M577-1218L444-1218L444-247L665-247Q789-247 844-261Q916-279 964-322Q1011-365 1041-463Q1071-562 1071-732Q1071-902 1041-993Q1011-1084 957-1135Q903-1186 820-1204Q758-1218 577-1218"/>
+    <path id="label-bold-E" d="M1264 0L149 0L149-1466L1236-1466L1236-1218L445-1218L445-893L1181-893L1181-646L445-646L445-247L1264-247"/>
+    <path id="label-bold-F" d="M447 0L151 0L151-1466L1156-1466L1156-1218L447-1218L447-871L1059-871L1059-623L447-623"/>
+    <path id="label-bold-I" d="M436 0L140 0L140-1466L436-1466"/>
+    <path id="label-bold-L" d="M1189 0L157 0L157-1454L453-1454L453-247L1189-247"/>
+    <path id="label-bold-M" d="M420 0L145 0L145-1466L588-1466L854-466L1117-1466L1561-1466L1561 0L1286 0L1286-1154L995 0L710 0L420-1154"/>
+    <path id="label-bold-O" d="M89-724Q89-948 156-1100Q206-1212 293-1301Q379-1390 482-1433Q619-1491 798-1491Q1122-1491 1317-1290Q1511-1089 1511-731Q1511-376 1318-175Q1125 25 802 25Q475 25 282-174Q89-374 89-724M394-734Q394-485 509-356Q624-228 801-228Q978-228 1092-355Q1205-483 1205-738Q1205-990 1095-1114Q984-1238 801-1238Q618-1238 506-1112Q394-987 394-734"/>
+    <path id="label-bold-R" d="M446 0L150 0L150-1466L773-1466Q1008-1466 1115-1426Q1221-1387 1285-1286Q1349-1185 1349-1055Q1349-890 1252-782Q1155-675 962-647Q1058-591 1121-524Q1183-457 1289-286L1468 0L1114 0L900-319Q786-490 744-534Q702-579 655-595Q608-612 506-612L446-612L446 0M446-1218L446-846L665-846Q878-846 931-864Q984-882 1014-926Q1044-970 1044-1036Q1044-1110 1005-1155Q965-1201 893-1213Q857-1218 677-1218"/>
+    <path id="label-regular-1" d="M763-1472L763 0L583 0L583-1147Q518-1085 413-1023Q307-961 223-930L223-1104Q374-1175 487-1276Q600-1377 647-1472"/>
+    <path id="label-regular-4" d="M842 0L662 0L662-351L26-351L26-516L695-1466L842-1466L842-516L1040-516L1040-351L842-351L842 0M203-516L662-516L662-1177"/>
+    <path id="label-regular-A" d="M203 0L-3 0L560-1466L769-1466L1369 0L1148 0L977-444L364-444L203 0M581-1032L420-602L917-602L764-1008Q694-1193 660-1312Q632-1171 581-1032"/>
+    <path id="label-regular-B" d="M709 0L150 0L150-1466L700-1466Q868-1466 970-1421Q1071-1377 1129-1284Q1186-1192 1186-1091Q1186-997 1135-914Q1084-831 981-780Q1114-741 1186-647Q1257-553 1257-425Q1257-322 1214-233Q1170-145 1106-97Q1042-49 946-24Q849 0 709 0M344-1293L344-850L661-850Q790-850 846-867Q920-889 958-940Q995-991 995-1068Q995-1141 960-1196Q925-1252 860-1272Q795-1293 637-1293L344-1293M344-677L344-173L709-173Q803-173 841-180Q908-192 953-220Q998-248 1027-301Q1056-355 1056-425Q1056-507 1014-567Q972-628 898-652Q823-677 683-677"/>
+    <path id="label-regular-C" d="M1204-514L1398-465Q1337-226 1179-100Q1020 25 791 25Q554 25 406-71Q257-168 180-351Q102-534 102-744Q102-973 190-1143Q277-1314 439-1402Q600-1491 794-1491Q1014-1491 1164-1379Q1314-1267 1373-1064L1182-1019Q1131-1179 1034-1252Q937-1325 790-1325Q621-1325 508-1244Q394-1163 348-1026Q302-890 302-745Q302-558 357-418Q411-279 526-210Q641-141 775-141Q938-141 1051-235Q1164-329 1204-514"/>
+    <path id="label-regular-D" d="M687 0L158 0L158-1466L663-1466Q834-1466 924-1445Q1050-1416 1139-1340Q1255-1242 1313-1089Q1370-937 1370-741Q1370-574 1331-445Q1292-316 1231-231Q1170-147 1098-98Q1025-50 923-25Q820 0 687 0M352-1293L352-173L665-173Q810-173 893-200Q975-227 1024-276Q1093-345 1132-461Q1170-578 1170-744Q1170-974 1095-1097Q1019-1221 911-1263Q833-1293 660-1293"/>
+    <path id="label-regular-E" d="M1256 0L162 0L162-1466L1222-1466L1222-1293L356-1293L356-844L1167-844L1167-672L356-672L356-173L1256-173"/>
+    <path id="label-regular-I" d="M385 0L191 0L191-1466L385-1466"/>
+    <path id="label-regular-J" d="M59-416L234-440Q241-272 297-210Q353-148 452-148Q525-148 578-181Q631-215 651-272Q671-330 671-456L671-1466L865-1466L865-467Q865-283 821-182Q776-81 680-28Q583 25 453 25Q260 25 158-86Q55-197 59-416"/>
+    <path id="label-regular-L" d="M1066 0L150 0L150-1466L344-1466L344-173L1066-173"/>
+    <path id="label-regular-N" d="M342 0L156 0L156-1466L355-1466L1125-315L1125-1466L1311-1466L1311 0L1112 0L342-1152"/>
+    <path id="label-regular-O" d="M99-714Q99-1079 295-1285Q491-1492 801-1492Q1004-1492 1167-1395Q1330-1298 1416-1124Q1501-951 1501-731Q1501-508 1411-332Q1321-156 1156-65Q991 25 800 25Q593 25 430-75Q267-175 183-348Q99-521 99-714M299-711Q299-446 442-293Q584-141 799-141Q1018-141 1160-295Q1301-449 1301-732Q1301-911 1241-1044Q1180-1178 1064-1251Q947-1325 802-1325Q596-1325 448-1183Q299-1042 299-711"/>
+    <path id="label-regular-T" d="M725 0L531 0L531-1293L48-1293L48-1466L1210-1466L1210-1293L725-1293"/>
+    <path id="label-regular-V" d="M776 0L577 0L9-1466L219-1466L600-401Q646-273 677-161Q711-281 756-401L1152-1466L1350-1466"/>
+    <path id="label-regular-dot" d="M443-637L238-637L238-842L443-842"/>
+    <path id="label-regular-A-acute" d="M203 0L-3 0L560-1466L769-1466L1369 0L1148 0L977-444L364-444L203 0M581-1032L420-602L917-602L764-1008Q694-1193 660-1312Q632-1171 581-1032M690-1556L541-1556L674-1836L910-1836"/>
+    <path id="label-regular-O-acute" d="M99-714Q99-1079 295-1285Q491-1492 801-1492Q1004-1492 1167-1395Q1330-1298 1416-1124Q1501-951 1501-731Q1501-508 1411-332Q1321-156 1156-65Q991 25 800 25Q593 25 430-75Q267-175 183-348Q99-521 99-714M299-711Q299-446 442-293Q584-141 799-141Q1018-141 1160-295Q1301-449 1301-732Q1301-911 1241-1044Q1180-1178 1064-1251Q947-1325 802-1325Q596-1325 448-1183Q299-1042 299-711M826-1556L677-1556L810-1836L1046-1836"/>
+  </defs>
+
+  <rect width="1200" height="1360" fill="url(#wood)"/>
+  <g filter="url(#woodGrain)"><rect width="1200" height="1360" fill="url(#wood)"/></g>
+  <g fill="none" stroke="#d5b7aa" stroke-opacity=".15" stroke-width="8"><path d="M-31 194C218 149 410 224 658 182C889 143 1043 95 1235 122"/><path d="M-27 1119C206 1074 414 1145 651 1105C884 1065 1043 1011 1235 1034"/></g>
+  <g fill="none" stroke="#332629" stroke-opacity=".24" stroke-width="4"><path d="M-28 307C218 262 416 330 659 285C890 243 1052 211 1235 224"/></g>
+  <rect width="1200" height="1360" fill="url(#light)"/>
+
+  <g filter="url(#smallShadow)">
+    <use href="#lavender" x="5" y="135" width="213" height="703" transform="rotate(-10 111 486)"/>
+    <use href="#lavender" x="127" y="66" width="189" height="624" transform="rotate(12 221 378)"/>
+    <use href="#lavender" x="938" y="97" width="207" height="683" transform="rotate(10 1041 438)"/>
+    <use href="#lavender" x="875" y="354" width="190" height="627" transform="rotate(-15 970 667)"/>
+  </g>
+
+  <ellipse cx="594" cy="1004" rx="376" ry="91" fill="#241a21" opacity=".34"/>
+  <g transform="rotate(-1.7 600 680)" filter="url(#shadow)">
+    <path d="M260 918L913 921L914 972C914 1010 887 1034 849 1037L321 1030C281 1029 257 1003 260 966Z" fill="url(#edge)"/>
+    <path d="M267 373C304 341 336 376 374 346C414 314 446 367 489 338C530 309 567 362 611 335C654 308 693 360 737 339C781 318 818 359 863 343L913 921C916 959 888 986 850 989L321 982C282 981 258 956 260 918Z" fill="url(#soap)"/>
+    <g clip-path="url(#barClip)" filter="url(#soapGrain)">
+      <path d="M177 463C325 397 446 431 558 475C679 523 768 514 851 458C897 426 939 410 983 420L988 532C915 517 874 545 825 577C721 645 612 634 493 583C388 538 292 525 179 588Z" fill="#d5cad3" opacity=".42"/>
+      <path d="M179 681C324 617 441 652 555 699C681 751 776 739 860 680C906 647 947 638 989 650L993 765C920 747 880 773 827 807C719 875 610 858 493 810C382 765 291 753 181 811Z" fill="#e0d4db" opacity=".24"/>
+      <path d="M183 855C326 790 438 821 552 865C671 911 773 906 856 854C904 824 950 813 993 830L996 939C920 913 873 946 814 969H183Z" fill="#3e3344" opacity=".28"/>
+      <path d="M185 576C320 520 425 538 531 583C660 638 765 625 850 570C901 538 941 528 982 538" fill="none" stroke="#e1d7df" stroke-opacity=".25" stroke-width="23"/>
+      <g fill="#e7dfe5" opacity=".5"><circle cx="350" cy="452" r="4"/><circle cx="744" cy="426" r="3"/><circle cx="447" cy="869" r="4"/><circle cx="828" cy="818" r="4"/></g>
+      <g fill="#49394f" opacity=".52"><circle cx="419" cy="528" r="5"/><circle cx="676" cy="496" r="4"/><circle cx="322" cy="744" r="4"/><circle cx="793" cy="757" r="5"/></g>
+      <g fill="#6f5883" opacity=".75"><ellipse cx="366" cy="412" rx="7" ry="18" transform="rotate(41 366 412)"/><ellipse cx="522" cy="377" rx="6" ry="17" transform="rotate(-28 522 377)"/><ellipse cx="713" cy="410" rx="7" ry="18" transform="rotate(58 713 410)"/><ellipse cx="817" cy="382" rx="6" ry="17" transform="rotate(-46 817 382)"/></g>
+    </g>
+    <path d="M301 391C337 363 366 393 402 364C439 334 470 380 510 352C550 324 585 375 625 350C668 323 703 375 744 354C786 332 818 370 861 358" fill="none" stroke="#e7dce5" stroke-opacity=".44" stroke-width="9" stroke-linecap="round"/>
+    <g filter="url(#paperGrain)"><path d="M257 606L919 610L920 807L258 803Z" fill="url(#kraft)"/></g>
+    <path d="M266 621L910 625M266 788L911 792" stroke="#4f3825" stroke-opacity=".34" stroke-width="3"/>
+    <g fill="#352d27">
+      <g aria-label="FIELD &amp; FORM" transform="translate(588 674) scale(0.011719)"><use href="#label-bold-F" x="-11035.67"/><use href="#label-bold-I" x="-9102.00"/><use href="#label-bold-E" x="-7850.33"/><use href="#label-bold-L" x="-5801.67"/><use href="#label-bold-D" x="-3868.00"/><use href="#label-bold-amp" x="-454.67"/><use href="#label-bold-F" x="2958.67"/><use href="#label-bold-O" x="4892.33"/><use href="#label-bold-R" x="7168.00"/><use href="#label-bold-M" x="9329.67"/></g>
+      <path d="M423 700H753" stroke="#352d27" stroke-opacity=".52" stroke-width="2"/>
+      <g aria-label="JABÓN BOTÁNICO" transform="translate(588 741) scale(0.015137)"><use href="#label-regular-J" x="-11193.60"/><use href="#label-regular-A" x="-9839.27"/><use href="#label-regular-B" x="-8142.95"/><use href="#label-regular-O-acute" x="-6446.63"/><use href="#label-regular-N" x="-4523.31"/><use href="#label-regular-B" x="-1814.66"/><use href="#label-regular-O" x="-118.34"/><use href="#label-regular-T" x="1804.98"/><use href="#label-regular-A-acute" x="3386.31"/><use href="#label-regular-N" x="5082.63"/><use href="#label-regular-I" x="6891.95"/><use href="#label-regular-C" x="7791.27"/><use href="#label-regular-O" x="9600.60"/></g>
+      <g aria-label="LAVANDA · LOTE 14" transform="translate(588 776) scale(0.008301)"><use href="#label-regular-L" x="-13435.06"/><use href="#label-regular-A" x="-11814.18"/><use href="#label-regular-V" x="-10118.29"/><use href="#label-regular-A" x="-8422.41"/><use href="#label-regular-N" x="-6574.53"/><use href="#label-regular-D" x="-4613.65"/><use href="#label-regular-A" x="-2652.76"/><use href="#label-regular-dot" x="133.00"/><use href="#label-regular-L" x="2347.76"/><use href="#label-regular-O" x="3968.65"/><use href="#label-regular-T" x="6043.53"/><use href="#label-regular-E" x="7776.41"/><use href="#label-regular-1" x="10675.18"/><use href="#label-regular-4" x="12296.06"/></g>
+    </g>
+    <g transform="translate(841 706) rotate(-5)" fill="none" stroke="#352d27" stroke-opacity=".66" stroke-width="3"><circle r="43"/><path d="M0 31V-27M0-18l-17-12M0-7l19-15M0 4-20-14M0 16l19-14"/></g>
+  </g>
+
+  <g filter="url(#smallShadow)">
+    <use href="#lavender" x="61" y="1003" width="170" height="560" transform="rotate(69 146 1283)"/>
+    <use href="#lavender" x="919" y="1007" width="169" height="558" transform="rotate(-67 1003 1286)"/>
+    <g color="#a76672">
+      <use href="#petal" x="284" y="1113" width="107" height="83" transform="rotate(28 337 1154)"/>
+      <use href="#petal" x="403" y="1172" width="91" height="70" transform="rotate(-47 448 1207)"/>
+      <use href="#petal" x="760" y="1121" width="100" height="77" transform="rotate(54 810 1159)"/>
+      <use href="#petal" x="859" y="1183" width="86" height="67" transform="rotate(-26 902 1216)"/>
+      <use href="#petal" x="1024" y="174" width="82" height="64" transform="rotate(41 1065 206)"/>
+    </g>
+    <g fill="#7f6894"><ellipse cx="549" cy="1154" rx="9" ry="25" transform="rotate(62 549 1154)"/><ellipse cx="610" cy="1196" rx="8" ry="24" transform="rotate(91 610 1196)"/><ellipse cx="670" cy="1155" rx="9" ry="25" transform="rotate(121 670 1155)"/></g>
+  </g>
+</svg>
