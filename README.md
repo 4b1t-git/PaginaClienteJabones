@@ -1,52 +1,52 @@
-# Field & Form storefront prototype
+# Prototipo de tienda Field & Form
 
-A polished, front-end-only storefront concept for a small-batch botanical soap studio. The project uses Vite, React and TypeScript, with original code-owned SVG product artwork and no remote assets.
+Prototipo frontend de una tienda para un emprendimiento de jabones botánicos elaborados en lotes pequeños. El proyecto utiliza Vite, React y TypeScript, con ilustraciones SVG originales almacenadas localmente y sin recursos remotos.
 
-## Setup
+## Instalación
 
-Requires Node.js 20.19+ (or 22.12+).
+Requiere Node.js 20.19+ o 22.12+.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite.
+Abre la dirección local que muestra Vite en la terminal.
 
-## Commands
+## Comandos
 
 ```bash
-npm run dev        # Start the development server
-npm run typecheck  # Run the TypeScript compiler
-npm run build      # Typecheck and create a production build
-npm run preview    # Serve the production build locally
+npm run dev        # Inicia el servidor de desarrollo
+npm run typecheck  # Ejecuta el compilador de TypeScript
+npm run build      # Valida los tipos y crea la compilación de producción
+npm run preview    # Sirve localmente la compilación de producción
 ```
 
-## Prototype behavior
+## Funcionamiento del prototipo
 
-- The catalog demonstrates available, sold-out and coming-soon states.
-- Coming-soon products use a live countdown. After the release time, a product becomes purchasable when its stock is greater than zero.
-- **Prototype inventory** in the header/footer opens a browser-only editor for product name, price, stock, status and release time.
-- Catalog edits and cart contents persist in `localStorage`. **Reset to demo data** restores the catalog defaults and creates a fresh future release time for Citrus Sun.
-- Cart quantity controls respect current stock. Unavailable cart lines must be removed or adjusted before checkout.
-- Checkout is explicitly a demo: it requests no payment details, processes no payment and creates no real order.
-- Dispatch copy consistently shows the next Wednesday using a UTC date-only calculation. It describes a dispatch window, not a delivery promise.
+- El catálogo muestra productos disponibles, agotados y próximos lanzamientos.
+- Los próximos lanzamientos incluyen una cuenta regresiva en tiempo real. Cuando llega la fecha de lanzamiento, el producto puede comprarse si tiene existencias.
+- **Inventario del prototipo**, disponible en el encabezado y el pie de página, abre un editor local para modificar el nombre, precio, existencias, estado y fecha de lanzamiento de cada producto.
+- Los cambios del catálogo y el contenido del carrito se guardan en `localStorage`. **Restablecer datos de demostración** recupera el catálogo original y asigna una nueva fecha futura al producto Sol Cítrico.
+- Los controles de cantidad del carrito respetan las existencias actuales. Los productos no disponibles deben eliminarse o ajustarse antes de finalizar la compra.
+- El proceso de compra es una demostración: no solicita datos de pago, no procesa cobros y no crea pedidos reales.
+- La página muestra el próximo miércoles de despacho mediante un cálculo de fecha UTC. Esta fecha representa una ventana de despacho, no una promesa de entrega.
 
-## Data and assets
+## Datos y recursos
 
-- Demo catalog: `src/data/products.ts`
-- Product state rules: `src/utils/catalog.ts`
-- Wednesday calculation: `src/utils/dates.ts`
-- Local SVG compositions: `public/images/`
-- Main visual system and responsive behavior: `src/styles.css`
+- Catálogo de demostración: `src/data/products.ts`
+- Reglas de estado de los productos: `src/utils/catalog.ts`
+- Cálculo del próximo miércoles: `src/utils/dates.ts`
+- Ilustraciones SVG locales: `public/images/`
+- Sistema visual y comportamiento adaptable: `src/styles.css`
 
-Local storage keys:
+Claves de almacenamiento local:
 
 - `field-and-form.catalog.v1`
 - `field-and-form.cart.v1`
 
-Remove those keys in browser developer tools to clear all saved prototype state.
+Elimina estas claves desde las herramientas de desarrollo del navegador para borrar todos los datos guardados del prototipo.
 
-## Production gaps
+## Requisitos pendientes para producción
 
-This is intentionally not a live commerce system. Production work would require a real CMS/database, authenticated and authorized administration, transactional inventory controls, product and order APIs, regional taxes and shipping rules, a payment provider with verified webhooks, transactional email, fulfillment integrations, analytics/privacy review, input validation, abuse protection, secrets management and a full security/accessibility/quality audit.
+Este proyecto todavía no es un sistema de comercio electrónico listo para producción. Una implementación real requiere un CMS o una base de datos, administración autenticada y autorizada, control transaccional del inventario, API de productos y pedidos, impuestos y reglas de envío regionales, un proveedor de pagos con webhooks verificados, correos transaccionales, integraciones de preparación y despacho, revisión de analítica y privacidad, validación de datos, protección contra abuso, gestión de secretos y una auditoría completa de seguridad, accesibilidad y calidad.
