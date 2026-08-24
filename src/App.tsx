@@ -15,16 +15,22 @@ import { InventoryEditor } from './components/InventoryEditor'
 import { ProductCard } from './components/ProductCard'
 import { QuickViewModal } from './components/QuickViewModal'
 import { Reveal } from './components/Reveal'
-import { CART_STORAGE_KEY, CATALOG_STORAGE_KEY, getDemoProducts, localizeStoredProducts } from './data/products'
+import {
+  CART_STORAGE_KEY,
+  CATALOG_STORAGE_KEY,
+  getDemoProducts,
+  localizeStoredProducts,
+  restoreStoredCart,
+} from './data/products'
 import { useNow } from './hooks/useNow'
 import { usePersistentState } from './hooks/usePersistentState'
 import type { CartItem, Product } from './types'
-import { getEffectiveStatus } from './utils/catalog'
+import { isProductPurchasable } from './utils/catalog'
 import { formatDispatchDate, getNextWednesdayISO } from './utils/dates'
 
 export default function App() {
   const [products, setProducts] = usePersistentState<Product[]>(CATALOG_STORAGE_KEY, getDemoProducts, localizeStoredProducts)
-  const [cart, setCart] = usePersistentState<CartItem[]>(CART_STORAGE_KEY, () => [])
+  const [cart, setCart] = usePersistentState<CartItem[]>(CART_STORAGE_KEY, () => [], restoreStoredCart)
   const [cartOpen, setCartOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
   const [checkoutOpen, setCheckoutOpen] = useState(false)
@@ -38,10 +44,10 @@ export default function App() {
     const product = products.find((candidate) => candidate.id === item.productId)
     return product ? [{ product, quantity: item.quantity }] : []
   })
-  const cartCount = cart.reduce((total, item) => total + item.quantity, 0)
+  const cartCount = lines.reduce((total, line) => total + line.quantity, 0)
 
   const addToCart = (product: Product) => {
-    if (getEffectiveStatus(product, now) !== 'available' || product.stock <= 0) return
+    if (!isProductPurchasable(product, now) || product.stock <= 0) return
 
     let added = false
     setCart((current) => {

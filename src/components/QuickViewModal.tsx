@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { useOverlayFocus } from '../hooks/useOverlayFocus'
 import type { Product } from '../types'
-import { formatAvailability, formatMoney, getEffectiveStatus, statusLabel } from '../utils/catalog'
+import { formatAvailability, formatPrice, getEffectiveStatus, isProductPurchasable, statusLabel } from '../utils/catalog'
 import { CloseIcon, PlusIcon } from './Icons'
 import { Countdown } from './Countdown'
 
@@ -19,7 +19,7 @@ export const QuickViewModal = ({ product, now, onClose, onAdd }: QuickViewModalP
   if (!product) return null
 
   const effectiveStatus = getEffectiveStatus(product, now)
-  const canBuy = effectiveStatus === 'available'
+  const canBuy = isProductPurchasable(product, now)
 
   return (
     <div className="overlay overlay--center" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
@@ -38,7 +38,7 @@ export const QuickViewModal = ({ product, now, onClose, onAdd }: QuickViewModalP
           <blockquote>“{product.story}”</blockquote>
           <dl className="product-facts">
             <div><dt>Ingredientes</dt><dd>{product.ingredients}</dd></div>
-            <div><dt>Peso al corte</dt><dd>{product.weight}</dd></div>
+            <div><dt>Peso al corte</dt><dd>{product.weight ?? 'Por anunciar'}</dd></div>
           </dl>
           {effectiveStatus === 'coming-soon' && (
             <div className="quick-view__release">
@@ -47,7 +47,11 @@ export const QuickViewModal = ({ product, now, onClose, onAdd }: QuickViewModalP
             </div>
           )}
           <button className="button button--dark button--full" type="button" disabled={!canBuy} onClick={() => onAdd(product)}>
-            {canBuy ? `Agregar al carrito · ${formatMoney(product.price)}` : statusLabel[effectiveStatus]}
+            {canBuy
+              ? `Agregar al carrito · ${formatPrice(product.price)}`
+              : effectiveStatus === 'available'
+                ? 'Datos comerciales por anunciar'
+                : statusLabel[effectiveStatus]}
             {canBuy && <PlusIcon />}
           </button>
         </div>

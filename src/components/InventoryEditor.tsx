@@ -70,8 +70,18 @@ export const InventoryEditor = ({
                       type="number"
                       min="0"
                       step="0.01"
-                      value={product.price}
-                      onChange={(event) => onUpdate(product.id, { price: Math.max(0, Number(event.target.value)) })}
+                      value={product.price ?? ''}
+                      onChange={(event) => onUpdate(product.id, {
+                        price: event.target.value === '' ? null : Math.max(0, Number(event.target.value)),
+                      })}
+                    />
+                  </label>
+                  <label className="field">
+                    <span>Peso</span>
+                    <input
+                      value={product.weight ?? ''}
+                      placeholder="Por anunciar"
+                      onChange={(event) => onUpdate(product.id, { weight: event.target.value || null })}
                     />
                   </label>
                   <label className="field">
@@ -93,6 +103,7 @@ export const InventoryEditor = ({
                       <option value="available">Disponible</option>
                       <option value="sold-out">Agotado</option>
                       <option value="coming-soon">Próximamente</option>
+                      <option value="preview">Vista previa</option>
                     </select>
                   </label>
                   <label className="field field--wide">

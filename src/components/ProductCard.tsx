@@ -1,5 +1,5 @@
 import type { Product } from '../types'
-import { formatAvailability, formatMoney, getEffectiveStatus, statusLabel } from '../utils/catalog'
+import { formatAvailability, formatPrice, getEffectiveStatus, isProductPurchasable, statusLabel } from '../utils/catalog'
 import { ArrowIcon, PlusIcon } from './Icons'
 import { Countdown } from './Countdown'
 
@@ -13,7 +13,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, now, added, onQuickView, onAdd }: ProductCardProps) => {
   const effectiveStatus = getEffectiveStatus(product, now)
-  const canBuy = effectiveStatus === 'available'
+  const canBuy = isProductPurchasable(product, now)
 
   return (
     <article className="product-card" style={{ '--product-accent': product.accent } as React.CSSProperties}>
@@ -32,7 +32,7 @@ export const ProductCard = ({ product, now, added, onQuickView, onAdd }: Product
             <p className={`status-pill status-pill--${effectiveStatus}`}>{statusLabel[effectiveStatus]}</p>
             <h3>{product.name}</h3>
           </div>
-          <p className="product-card__price">{formatMoney(product.price)}</p>
+          <p className="product-card__price">{formatPrice(product.price)}</p>
         </div>
         <p className="product-card__subtitle">{product.subtitle}</p>
         {effectiveStatus === 'coming-soon' && (
@@ -47,7 +47,13 @@ export const ProductCard = ({ product, now, added, onQuickView, onAdd }: Product
           disabled={!canBuy}
           onClick={() => onAdd(product)}
         >
-          {added ? 'Agregado al carrito' : canBuy ? 'Agregar al carrito' : statusLabel[effectiveStatus]}
+          {added
+            ? 'Agregado al carrito'
+            : canBuy
+              ? 'Agregar al carrito'
+              : effectiveStatus === 'available'
+                ? 'Datos comerciales por anunciar'
+                : statusLabel[effectiveStatus]}
           {canBuy && <PlusIcon />}
         </button>
       </div>
