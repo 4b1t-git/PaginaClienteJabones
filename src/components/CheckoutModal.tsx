@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { useOverlayFocus } from '../hooks/useOverlayFocus'
 import type { CartLine } from '../types'
-import { formatMoney } from '../utils/catalog'
+import { formatMoney, formatPrice, hasProductPrice } from '../utils/catalog'
 import { CheckIcon, CloseIcon, TruckIcon } from './Icons'
 
 interface CheckoutModalProps {
@@ -34,10 +34,15 @@ export const CheckoutModal = ({ open, lines, dispatchDate, onClose, onOrderCompl
 
   if (!open) return null
 
-  const subtotal = lines.reduce((total, line) => total + line.product.price * line.quantity, 0)
+  const hasPendingPrice = lines.some(({ product }) => !hasProductPrice(product.price))
+  const subtotal = lines.reduce(
+    (total, line) => total + (hasProductPrice(line.product.price) ? line.product.price * line.quantity : 0),
+    0,
+  )
 
   const submitOrder = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (hasPendingPrice) return
     const itemCount = lines.reduce((total, line) => total + line.quantity, 0)
     setConfirmation({
       reference: `FF-DEMO-${Date.now().toString().slice(-6)}`,
@@ -113,7 +118,7 @@ export const CheckoutModal = ({ open, lines, dispatchDate, onClose, onOrderCompl
                   <input type="checkbox" required />
                   <span>Entiendo que este es un prototipo y que no se creará ningún pedido ni pago real.</span>
                 </label>
-                <button className="button button--clay button--full" type="submit">Finalizar compra de demostración</button>
+                <button className="button button--clay button--full" type="submit" disabled={hasPendingPrice}>Finalizar compra de demostración</button>
               </form>
 
               <aside className="order-summary" aria-label="Resumen del pedido">
@@ -123,7 +128,7 @@ export const CheckoutModal = ({ open, lines, dispatchDate, onClose, onOrderCompl
                     <div className="summary-line" key={product.id}>
                       <img src={product.image} alt="" />
                       <p><strong>{product.name}</strong><span>Cantidad: {quantity}</span></p>
-                      <span>{formatMoney(product.price * quantity)}</span>
+                      <span>{formatPrice(product.price, quantity)}</span>
                     </div>
                   ))}
                 </div>
@@ -131,7 +136,10 @@ export const CheckoutModal = ({ open, lines, dispatchDate, onClose, onOrderCompl
                   <TruckIcon />
                   <p><strong>Envío del miércoles</strong><span>{dispatchDate}</span></p>
                 </div>
-                <div className="subtotal"><span>Subtotal de demostración</span><strong>{formatMoney(subtotal)}</strong></div>
+                <div className="subtotal">
+                  <span>Subtotal de demostración</span>
+                  <strong>{hasPendingPrice ? 'Por calcular' : formatMoney(subtotal)}</strong>
+                </div>
                 <p className="order-summary__note">Las tarifas de envío, los impuestos y la fecha de entrega no se estiman intencionalmente.</p>
               </aside>
             </div>

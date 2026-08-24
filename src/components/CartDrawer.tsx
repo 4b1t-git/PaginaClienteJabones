@@ -1,7 +1,14 @@
 import { useId } from 'react'
 import { useOverlayFocus } from '../hooks/useOverlayFocus'
 import type { CartLine } from '../types'
-import { formatMoney, getEffectiveStatus, statusLabel } from '../utils/catalog'
+import {
+  formatMoney,
+  formatPrice,
+  getEffectiveStatus,
+  hasProductPrice,
+  isProductPurchasable,
+  statusLabel,
+} from '../utils/catalog'
 import { BagIcon, CloseIcon, MinusIcon, PlusIcon, TruckIcon } from './Icons'
 
 interface CartDrawerProps {
@@ -30,9 +37,13 @@ export const CartDrawer = ({
 
   if (!open) return null
 
-  const subtotal = lines.reduce((total, line) => total + line.product.price * line.quantity, 0)
+  const hasPendingPrice = lines.some(({ product }) => !hasProductPrice(product.price))
+  const subtotal = lines.reduce(
+    (total, line) => total + (hasProductPrice(line.product.price) ? line.product.price * line.quantity : 0),
+    0,
+  )
   const hasUnavailable = lines.some(
-    ({ product, quantity }) => getEffectiveStatus(product, now) !== 'available' || quantity > product.stock,
+    ({ product, quantity }) => !isProductPurchasable(product, now) || quantity > product.stock,
   )
 
   return (
@@ -60,7 +71,7 @@ export const CartDrawer = ({
             <div className="cart-lines">
               {lines.map(({ product, quantity }) => {
                 const status = getEffectiveStatus(product, now)
-                const unavailable = status !== 'available' || quantity > product.stock
+                const unavailable = !isProductPurchasable(product, now) || quantity > product.stock
                 return (
                   <article className="cart-line" key={product.id}>
                     <img src={product.image} alt="" />
@@ -68,13 +79,17 @@ export const CartDrawer = ({
                       <div className="cart-line__heading">
                         <div>
                           <h3>{product.name}</h3>
-                          <p>{product.weight}</p>
+                          <p>{product.weight ?? 'Peso por anunciar'}</p>
                         </div>
-                        <strong>{formatMoney(product.price * quantity)}</strong>
+                        <strong>{formatPrice(product.price, quantity)}</strong>
                       </div>
                       {unavailable && (
                         <p className="cart-line__warning">
-                          {status !== 'available' ? `${statusLabel[status]}: elimínalo para continuar` : `Solo quedan ${product.stock} unidades`}
+                          {status !== 'available'
+                            ? `${statusLabel[status]}: elimínalo para continuar`
+                            : !hasProductPrice(product.price) || !product.weight?.trim()
+                              ? 'Datos comerciales por anunciar: elimínalo para continuar'
+                              : `Solo quedan ${product.stock} unidades`}
                         </p>
                       )}
                       <div className="cart-line__actions">
@@ -85,7 +100,7 @@ export const CartDrawer = ({
                           <span aria-live="polite">{quantity}</span>
                           <button
                             type="button"
-                            disabled={status !== 'available' || quantity >= product.stock}
+                            disabled={!isProductPurchasable(product, now) || quantity >= product.stock}
                             onClick={() => onQuantityChange(product.id, quantity + 1)}
                             aria-label={`Aumentar la cantidad de ${product.name}`}
                           >
@@ -105,7 +120,10 @@ export const CartDrawer = ({
                 <TruckIcon />
                 <p><strong>Próximo envío</strong><span>{dispatchDate}</span></p>
               </div>
-              <div className="subtotal"><span>Subtotal</span><strong>{formatMoney(subtotal)}</strong></div>
+              <div className="subtotal">
+                <span>Subtotal</span>
+                <strong>{hasPendingPrice ? 'Por calcular' : formatMoney(subtotal)}</strong>
+              </div>
               <p className="cart-footer__fineprint">Los impuestos y las tarifas de envío no se calculan en este prototipo.</p>
               {hasUnavailable && <p className="form-error">Elimina o ajusta los artículos no disponibles antes de finalizar la compra.</p>}
               <button className="button button--dark button--full" type="button" disabled={hasUnavailable} onClick={onCheckout}>

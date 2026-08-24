@@ -780,7 +780,8 @@ h3 {
   box-shadow: none;
 }
 
-.status-pill--coming-soon::before {
+.status-pill--coming-soon::before,
+.status-pill--preview::before {
   background: var(--clay);
   box-shadow: 0 0 0 3px rgba(184, 100, 77, 0.14);
 }

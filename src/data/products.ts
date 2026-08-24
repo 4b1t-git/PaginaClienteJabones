@@ -1,29 +1,32 @@
-import type { Product } from '../types'
+import type { CartItem, Product } from '../types'
 import { migrateLegacyImageUrl, publicAssetUrl } from '../utils/assets'
 
 export const CATALOG_STORAGE_KEY = 'field-and-form.catalog.v1'
 export const CART_STORAGE_KEY = 'field-and-form.cart.v1'
+
+const ROSA_CARMESI_ID = 'rosa-carmesi'
+const LEGACY_ROSA_CARMESI_ID = 'olive-leaf'
 
 const futureDate = (days: number, hours = 0) =>
   new Date(Date.now() + ((days * 24 + hours) * 60 * 60 * 1000)).toISOString()
 
 export const getDemoProducts = (): Product[] => [
   {
-    id: 'olive-leaf',
-    name: 'Hoja de olivo n.º 04',
-    subtitle: 'Arcilla verde · romero · aceite de oliva',
+    id: ROSA_CARMESI_ID,
+    name: 'Rosa Carmesí',
+    subtitle: 'Sebo de res · aceite de coco · rosa roja',
     description:
-      'Una barra de uso diario rica en minerales, con un acabado verde y herbal y una espuma densa y cremosa.',
+      'Una barra floral de espuma cremosa, formulada para limpiar con suavidad y favorecer una sensación hidratada, tersa y confortable en la piel.',
     story:
-      'Nuestra barra más arraigada comienza con una infusión lenta de romero y una generosa porción de aceite de oliva extra virgen.',
-    ingredients: 'Aceites saponificados de oliva, coco y girasol, arcilla verde, hojas de romero y cedro.',
-    weight: '110 g / 3,9 oz',
-    price: 14,
-    stock: 12,
-    status: 'available',
-    image: publicAssetUrl('images/olive-leaf.svg'),
-    imageAlt: 'Escena vectorial cenital con una barra verde salvia, banda kraft, jabones pastel y ramas de olivo',
-    accent: '#68704a',
+      'La esencia de rosa roja aporta el carácter de la fórmula y un perfil antioxidante apreciado en el cuidado cosmético, sin perder la sencillez de sus tres ingredientes.',
+    ingredients: 'Sebo de res, aceite de coco y esencia de rosa roja.',
+    weight: null,
+    price: null,
+    stock: 7,
+    status: 'preview',
+    image: publicAssetUrl('images/rosa-carmesi/rosa-carmesi-front.png'),
+    imageAlt: 'Vista frontal del jabón artesanal Rosa Carmesí',
+    accent: '#8f3449',
   },
   {
     id: 'clay-calendula',
@@ -114,7 +117,6 @@ export const getDemoProducts = (): Product[] => [
 ]
 
 const legacyProductNames: Record<string, string> = {
-  'olive-leaf': 'Olive Leaf No. 04',
   'clay-calendula': 'Clay & Calendula',
   'oat-milk': 'Quiet Oat',
   'charcoal-pine': 'Night Grove',
@@ -124,22 +126,38 @@ const legacyProductNames: Record<string, string> = {
 
 export const localizeStoredProducts = (products: Product[]) => {
   const localizedProducts = new Map(getDemoProducts().map((product) => [product.id, product]))
+  const hasRosaCarmesi = products.some((product) => product.id === ROSA_CARMESI_ID)
 
-  return products.map((product) => {
+  return products.flatMap((product) => {
+    if (product.id === LEGACY_ROSA_CARMESI_ID) {
+      return hasRosaCarmesi ? [] : [localizedProducts.get(ROSA_CARMESI_ID)!]
+    }
+
     const localized = localizedProducts.get(product.id)
     const image = migrateLegacyImageUrl(product.image)
-    if (!localized) return { ...product, image }
+    if (!localized) return [{ ...product, image }]
 
-    return {
+    const hasLegacyName = product.name === legacyProductNames[product.id]
+    const isRosaCarmesi = product.id === ROSA_CARMESI_ID
+
+    return [{
       ...product,
-      image,
-      name: product.name === legacyProductNames[product.id] ? localized.name : product.name,
+      image: isRosaCarmesi ? localized.image : image,
+      name: hasLegacyName ? localized.name : product.name,
       subtitle: localized.subtitle,
       description: localized.description,
       story: localized.story,
       ingredients: localized.ingredients,
-      weight: localized.weight,
+      weight: hasLegacyName || product.weight === undefined ? localized.weight : product.weight,
+      price: product.price === undefined ? localized.price : product.price,
       imageAlt: localized.imageAlt,
-    }
+    }]
   })
+}
+
+export const restoreStoredCart = (items: CartItem[]) => {
+  const productIds = new Set(getDemoProducts().map((product) => product.id))
+  return items.filter(
+    (item) => productIds.has(item.productId) && Number.isInteger(item.quantity) && item.quantity > 0,
+  )
 }

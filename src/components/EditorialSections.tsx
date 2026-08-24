@@ -1,5 +1,5 @@
 import type { Product } from '../types'
-import { formatAvailability, formatMoney, getEffectiveStatus, statusLabel } from '../utils/catalog'
+import { formatAvailability, formatPrice, getEffectiveStatus, statusLabel } from '../utils/catalog'
 import { ArrowIcon, LeafIcon, TruckIcon } from './Icons'
 import { Countdown } from './Countdown'
 import { Reveal } from './Reveal'
@@ -60,7 +60,7 @@ export const FeaturedStory = ({ product, now, onView }: FeaturedStoryProps) => {
           </div>
         )}
         <button className="text-link" type="button" onClick={() => onView(product)}>
-          Conoce la barra · {formatMoney(product.price)} <ArrowIcon />
+          Conoce la barra · {formatPrice(product.price)} <ArrowIcon />
         </button>
       </Reveal>
     </section>

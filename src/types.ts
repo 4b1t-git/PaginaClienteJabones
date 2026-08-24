@@ -1,4 +1,4 @@
-export type ProductStatus = 'available' | 'sold-out' | 'coming-soon'
+export type ProductStatus = 'available' | 'sold-out' | 'coming-soon' | 'preview'
 
 export interface Product {
   id: string
@@ -7,8 +7,8 @@ export interface Product {
   description: string
   story: string
   ingredients: string
-  weight: string
-  price: number
+  weight: string | null
+  price: number | null
   stock: number
   status: ProductStatus
   availableAt?: string
