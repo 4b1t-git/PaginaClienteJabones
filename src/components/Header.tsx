@@ -32,9 +32,9 @@ export const Header = ({ cartCount, onOpenCart, onOpenInventory }: HeaderProps) 
         <a href="#dispatch">Conoce nuestro ritmo semanal</a>
       </div>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Inicio de Field & Form" onClick={closeMenu}>
-          <span className="brand__mark" aria-hidden="true">F/F</span>
-          <span className="brand__name">Field &amp; Form</span>
+        <a className="brand" href="#top" aria-label="Inicio de LinaNaturals" onClick={closeMenu}>
+          <span className="brand__mark" aria-hidden="true">LN</span>
+          <span className="brand__name">LinaNaturals</span>
         </a>
 
         <nav className="desktop-nav" aria-label="Navegación principal">

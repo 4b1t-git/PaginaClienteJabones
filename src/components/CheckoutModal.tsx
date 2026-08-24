@@ -45,7 +45,7 @@ export const CheckoutModal = ({ open, lines, dispatchDate, onClose, onOrderCompl
     if (hasPendingPrice) return
     const itemCount = lines.reduce((total, line) => total + line.quantity, 0)
     setConfirmation({
-      reference: `FF-DEMO-${Date.now().toString().slice(-6)}`,
+      reference: `LN-DEMO-${Date.now().toString().slice(-6)}`,
       itemCount,
       subtotal,
     })
