@@ -1,4 +1,4 @@
-# Prototipo de tienda Field & Form
+# Prototipo de tienda LinaNaturals
 
 Prototipo frontend de una tienda para un emprendimiento de jabones botánicos elaborados en lotes pequeños. El proyecto utiliza Vite, React y TypeScript, con ilustraciones SVG originales almacenadas localmente y sin recursos remotos.
 

@@ -32,8 +32,8 @@ export const Footer = ({ onOpenInventory }: FooterProps) => {
       </div>
       <div className="footer-main section-shell">
         <div className="footer-brand">
-          <span className="brand__mark" aria-hidden="true">F/F</span>
-          <h2>Field &amp; Form</h2>
+          <span className="brand__mark" aria-hidden="true">LN</span>
+          <h2>LinaNaturals</h2>
           <p>Jabón botánico para días comunes y hermosos.</p>
         </div>
         <div className="footer-links">
@@ -43,7 +43,7 @@ export const Footer = ({ onOpenInventory }: FooterProps) => {
         </div>
       </div>
       <div className="footer-bottom section-shell">
-        <p>© {new Date().getUTCFullYear()} Prototipo de Field &amp; Form</p>
+        <p>© {new Date().getUTCFullYear()} Prototipo de LinaNaturals</p>
         <p>Creado como demostración de interfaz · No es una tienda activa</p>
       </div>
     </footer>
