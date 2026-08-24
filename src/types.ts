@@ -13,6 +13,7 @@ export interface Product {
   status: ProductStatus
   availableAt?: string
   image: string
+  images?: string[]
   imageAlt: string
   accent: string
 }

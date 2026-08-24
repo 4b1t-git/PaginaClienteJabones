@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useOverlayFocus } from '../hooks/useOverlayFocus'
 import type { Product } from '../types'
 import { formatAvailability, formatPrice, getEffectiveStatus, isProductPurchasable, statusLabel } from '../utils/catalog'
@@ -12,14 +12,30 @@ interface QuickViewModalProps {
   onAdd: (product: Product) => void
 }
 
+const galleryViewLabels = [
+  'vista frontal',
+  'primera vista lateral',
+  'vista posterior',
+  'segunda vista lateral',
+]
+
 export const QuickViewModal = ({ product, now, onClose, onAdd }: QuickViewModalProps) => {
   const titleId = useId()
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const panelRef = useOverlayFocus(Boolean(product), onClose)
+  const galleryImages = product?.images?.length ? product.images : product ? [product.image] : []
+
+  useEffect(() => {
+    setSelectedImageIndex(0)
+  }, [product?.id])
 
   if (!product) return null
 
   const effectiveStatus = getEffectiveStatus(product, now)
   const canBuy = isProductPurchasable(product, now)
+  const activeImageIndex = selectedImageIndex < galleryImages.length ? selectedImageIndex : 0
+  const hasGallery = galleryImages.length > 1
+  const selectedViewLabel = galleryViewLabels[activeImageIndex] ?? `foto ${activeImageIndex + 1}`
 
   return (
     <div className="overlay overlay--center" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
@@ -27,8 +43,33 @@ export const QuickViewModal = ({ product, now, onClose, onAdd }: QuickViewModalP
         <button className="icon-button overlay__close" type="button" onClick={onClose} aria-label="Cerrar detalles del producto">
           <CloseIcon />
         </button>
-        <div className="quick-view__image">
-          <img src={product.image} alt={product.imageAlt} />
+        <div className={`quick-view__media${hasGallery ? ' quick-view__media--gallery' : ''}`}>
+          <div className="quick-view__image">
+            <img
+              src={galleryImages[activeImageIndex] ?? product.image}
+              alt={hasGallery ? `${product.name}: ${selectedViewLabel}` : product.imageAlt}
+            />
+          </div>
+          {hasGallery && (
+            <div className="quick-view__thumbnails" role="group" aria-label={`Fotos de ${product.name}`}>
+              {galleryImages.map((image, index) => {
+                const viewLabel = galleryViewLabels[index] ?? `foto ${index + 1}`
+
+                return (
+                  <button
+                    className={`quick-view__thumbnail${index === activeImageIndex ? ' is-active' : ''}`}
+                    type="button"
+                    onClick={() => setSelectedImageIndex(index)}
+                    aria-label={`Mostrar ${viewLabel} de ${product.name}`}
+                    aria-pressed={index === activeImageIndex}
+                    key={image}
+                  >
+                    <img src={image} alt="" />
+                  </button>
+                )
+              })}
+            </div>
+          )}
         </div>
         <div className="quick-view__content">
           <p className={`status-pill status-pill--${effectiveStatus}`}>{statusLabel[effectiveStatus]}</p>

@@ -25,6 +25,12 @@ export const getDemoProducts = (): Product[] => [
     stock: 7,
     status: 'preview',
     image: publicAssetUrl('images/rosa-carmesi/rosa-carmesi-front.png'),
+    images: [
+      publicAssetUrl('images/rosa-carmesi/rosa-carmesi-front.png'),
+      publicAssetUrl('images/rosa-carmesi/rosa-carmesi-side-one.png'),
+      publicAssetUrl('images/rosa-carmesi/rosa-carmesi-back.png'),
+      publicAssetUrl('images/rosa-carmesi/rosa-carmesi-side-two.png'),
+    ],
     imageAlt: 'Vista frontal del jabón artesanal Rosa Carmesí',
     accent: '#8f3449',
   },
@@ -135,7 +141,8 @@ export const localizeStoredProducts = (products: Product[]) => {
 
     const localized = localizedProducts.get(product.id)
     const image = migrateLegacyImageUrl(product.image)
-    if (!localized) return [{ ...product, image }]
+    const images = product.images?.map(migrateLegacyImageUrl)
+    if (!localized) return [{ ...product, image, images }]
 
     const hasLegacyName = product.name === legacyProductNames[product.id]
     const isRosaCarmesi = product.id === ROSA_CARMESI_ID
@@ -143,6 +150,7 @@ export const localizeStoredProducts = (products: Product[]) => {
     return [{
       ...product,
       image: isRosaCarmesi ? localized.image : image,
+      images: isRosaCarmesi ? localized.images : images,
       name: hasLegacyName ? localized.name : product.name,
       subtitle: localized.subtitle,
       description: localized.description,
