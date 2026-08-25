@@ -5,6 +5,7 @@ export const CATALOG_STORAGE_KEY = 'field-and-form.catalog.v1'
 export const CART_STORAGE_KEY = 'field-and-form.cart.v1'
 
 const ROSA_CARMESI_ID = 'rosa-carmesi'
+const FLOR_SERENA_ID = 'flor-serena'
 const LEGACY_ROSA_CARMESI_ID = 'olive-leaf'
 
 const futureDate = (days: number, hours = 0) =>
@@ -33,6 +34,29 @@ export const getDemoProducts = (): Product[] => [
     ],
     imageAlt: 'Vista frontal del jabón artesanal Rosa Carmesí',
     accent: '#8f3449',
+  },
+  {
+    id: FLOR_SERENA_ID,
+    name: 'Flor Serena',
+    subtitle: 'Sebo de res · aceite de coco · aceite de canola',
+    description:
+      'Una barra de limpieza suave, formulada para pieles delicadas y para dejar una sensación cómoda e hidratada después del uso.',
+    story:
+      'El sebo de res se combina con los aceites de coco y canola en una fórmula sencilla pensada para una rutina de cuidado gentil.',
+    ingredients: 'Sebo de res, aceite de coco y aceite de canola.',
+    weight: null,
+    price: null,
+    stock: 11,
+    status: 'preview',
+    image: publicAssetUrl('images/flor-serena/flor-serena-front.png'),
+    images: [
+      publicAssetUrl('images/flor-serena/flor-serena-front.png'),
+      publicAssetUrl('images/flor-serena/flor-serena-side-one.png'),
+      publicAssetUrl('images/flor-serena/flor-serena-back.png'),
+      publicAssetUrl('images/flor-serena/flor-serena-side-two.png'),
+    ],
+    imageAlt: 'Vista frontal del jabón artesanal Flor Serena',
+    accent: '#bc7a43',
   },
   {
     id: 'clay-calendula',
@@ -133,8 +157,9 @@ const legacyProductNames: Record<string, string> = {
 export const localizeStoredProducts = (products: Product[]) => {
   const localizedProducts = new Map(getDemoProducts().map((product) => [product.id, product]))
   const hasRosaCarmesi = products.some((product) => product.id === ROSA_CARMESI_ID)
+  const hasFlorSerena = products.some((product) => product.id === FLOR_SERENA_ID)
 
-  return products.flatMap((product) => {
+  let localizedCatalog = products.flatMap((product) => {
     if (product.id === LEGACY_ROSA_CARMESI_ID) {
       return hasRosaCarmesi ? [] : [localizedProducts.get(ROSA_CARMESI_ID)!]
     }
@@ -161,6 +186,20 @@ export const localizeStoredProducts = (products: Product[]) => {
       imageAlt: localized.imageAlt,
     }]
   })
+
+  if (!hasFlorSerena) {
+    const florSerena = localizedProducts.get(FLOR_SERENA_ID)!
+    const rosaCarmesiIndex = localizedCatalog.findIndex((product) => product.id === ROSA_CARMESI_ID)
+    const insertionIndex = rosaCarmesiIndex === -1 ? localizedCatalog.length : rosaCarmesiIndex + 1
+
+    localizedCatalog = [
+      ...localizedCatalog.slice(0, insertionIndex),
+      florSerena,
+      ...localizedCatalog.slice(insertionIndex),
+    ]
+  }
+
+  return localizedCatalog
 }
 
 export const restoreStoredCart = (items: CartItem[]) => {
