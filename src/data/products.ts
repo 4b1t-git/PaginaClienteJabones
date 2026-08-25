@@ -6,6 +6,7 @@ export const CART_STORAGE_KEY = 'field-and-form.cart.v1'
 
 const ROSA_CARMESI_ID = 'rosa-carmesi'
 const FLOR_SERENA_ID = 'flor-serena'
+const BRISA_BOTANICA_ID = 'brisa-botanica'
 const LEGACY_ROSA_CARMESI_ID = 'olive-leaf'
 
 const futureDate = (days: number, hours = 0) =>
@@ -57,6 +58,29 @@ export const getDemoProducts = (): Product[] => [
     ],
     imageAlt: 'Vista frontal del jabón artesanal Flor Serena',
     accent: '#bc7a43',
+  },
+  {
+    id: BRISA_BOTANICA_ID,
+    name: 'Brisa Botánica',
+    subtitle: 'Sebo de res · aceite de coco · aceite de oliva',
+    description:
+      'Una barra de limpieza suave para pieles delicadas, pensada para dejar una sensación cómoda e hidratada después del uso.',
+    story:
+      'El sebo de res se combina con los aceites de coco y oliva en una fórmula sencilla para una rutina de cuidado gentil.',
+    ingredients: 'Sebo de res, aceite de coco y aceite de oliva.',
+    weight: null,
+    price: null,
+    stock: 10,
+    status: 'preview',
+    image: publicAssetUrl('images/brisa-botanica/brisa-botanica-front.png'),
+    images: [
+      publicAssetUrl('images/brisa-botanica/brisa-botanica-front.png'),
+      publicAssetUrl('images/brisa-botanica/brisa-botanica-side-one.png'),
+      publicAssetUrl('images/brisa-botanica/brisa-botanica-back.png'),
+      publicAssetUrl('images/brisa-botanica/brisa-botanica-side-two.png'),
+    ],
+    imageAlt: 'Vista frontal del jabón artesanal Brisa Botánica',
+    accent: '#718568',
   },
   {
     id: 'clay-calendula',
@@ -158,6 +182,7 @@ export const localizeStoredProducts = (products: Product[]) => {
   const localizedProducts = new Map(getDemoProducts().map((product) => [product.id, product]))
   const hasRosaCarmesi = products.some((product) => product.id === ROSA_CARMESI_ID)
   const hasFlorSerena = products.some((product) => product.id === FLOR_SERENA_ID)
+  const hasBrisaBotanica = products.some((product) => product.id === BRISA_BOTANICA_ID)
 
   let localizedCatalog = products.flatMap((product) => {
     if (product.id === LEGACY_ROSA_CARMESI_ID) {
@@ -199,7 +224,17 @@ export const localizeStoredProducts = (products: Product[]) => {
     ]
   }
 
-  return localizedCatalog
+  if (hasBrisaBotanica) return localizedCatalog
+
+  const brisaBotanica = localizedProducts.get(BRISA_BOTANICA_ID)!
+  const florSerenaIndex = localizedCatalog.findIndex((product) => product.id === FLOR_SERENA_ID)
+  const insertionIndex = florSerenaIndex === -1 ? localizedCatalog.length : florSerenaIndex + 1
+
+  return [
+    ...localizedCatalog.slice(0, insertionIndex),
+    brisaBotanica,
+    ...localizedCatalog.slice(insertionIndex),
+  ]
 }
 
 export const restoreStoredCart = (items: CartItem[]) => {
